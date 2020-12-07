@@ -77,6 +77,7 @@ public:
 		mErrors = 0;	// The destructor may not throw an exception so silence the error checker.
 		Close();
 	}
+	bool FindKey(const char* key);
 	void SetUniqueSoundNames() { soundNamesAreUnique = true; }
 	bool OpenWriter(bool pretty = true);
 	bool OpenReader(const char *buffer, size_t length);

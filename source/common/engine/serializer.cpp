@@ -356,6 +356,18 @@ bool FSerializer::BeginArray(const char *name)
 //
 //==========================================================================
 
+bool FSerializer::FindKey(const char* key)
+{
+	auto val = r->FindKey(key);
+	return (val != nullptr);
+}
+
+//==========================================================================
+//
+//
+//
+//==========================================================================
+
 void FSerializer::EndArray()
 {
 	if (isWriting())

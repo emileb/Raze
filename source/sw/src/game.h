@@ -992,7 +992,7 @@ struct PLAYERstruct
     short Heads;                    // Number of Accursed Heads orbiting player
     int PlayerVersion;
 
-    char cookieQuote[256];          // Should be an FString but must be POD for now to be storable in a savegame.
+    FString cookieQuote;          // Should be an FString but must be POD for now to be storable in a savegame.
     int cookieTime;
 
     char WpnReloadState;

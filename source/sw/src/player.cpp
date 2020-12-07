@@ -7203,7 +7203,7 @@ domovethings(void)
             pp->cookieTime -= synctics;
             if (pp->cookieTime <= 0)
             {
-                memset(pp->cookieQuote, 0, sizeof(pp->cookieQuote));
+                pp->cookieQuote = "";
                 pp->cookieTime = 0;
             }
         }

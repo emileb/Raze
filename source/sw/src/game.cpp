@@ -548,7 +548,7 @@ void TerminateLevel(void)
         pClearSpriteList(pp);
 
         pp->cookieTime = 0;
-        memset(pp->cookieQuote, 0, sizeof(pp->cookieQuote));
+        pp->cookieQuote = "";
         pp->DoPlayerAction = NULL;
 
         pp->SpriteP = NULL;

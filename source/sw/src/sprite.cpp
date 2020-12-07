@@ -5745,8 +5745,7 @@ KeyMain:
                     Printf(PRINT_NONOTIFY, TEXTCOLOR_SAPPHIRE "%s\n", msg.GetChars());
                     if (hud_messages)
                     {
-                        strncpy(pp->cookieQuote, msg, 255);
-                        pp->cookieQuote[255] = 0;
+                        pp->cookieQuote = msg;
                         pp->cookieTime = 540;
                     }
                 }
