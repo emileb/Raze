@@ -1175,6 +1175,7 @@ void GameInterface::SerializeGameState(FSerializer& arc)
 			.Array("cookiequote", cookieQuote, numplayers)
             .EndObject();
 
+		so_serializeinterpolations(arc);
 		if (arc.BeginArray("user"))
 		{
 			for (int i = 0; i < MAXSPRITES; i++)
@@ -1456,12 +1457,6 @@ bool GameInterface::SaveGame()
 
 
 #endif
-
-
-    // SO interpolations
-	saveisshot |= so_writeinterpolations(fil);
-	assert(!saveisshot);
-
     return !saveisshot;
 }
 
@@ -1541,10 +1536,6 @@ bool GameInterface::LoadGame()
         if (saveisshot) { MCLOSE_READ(fil); return false; }
     }
 #endif
-
-    // SO interpolations
-    saveisshot |= so_readinterpolations(fil);
-    if (saveisshot) { MCLOSE_READ(fil); return false; }
 
     MCLOSE_READ(fil);
 

@@ -29,6 +29,8 @@ Prepared for public release: 03/28/2005 - Charlie Wiederhold, 3D Realms
 
 #include "mfile.h"
 
+class FSerializer;
+
 BEGIN_SW_NS
 
 extern int32_t so_numinterpolations;
@@ -41,8 +43,7 @@ void so_setinterpolationtics(SECTOR_OBJECTp sop, int16_t locktics);
 void so_updateinterpolations(void);
 void so_dointerpolations(int32_t smoothratio);
 void so_restoreinterpolations(void);
-int so_writeinterpolations(MFILE_WRITE fil);
-int so_readinterpolations(MFILE_READ fil);
+void so_serializeinterpolations(FSerializer& arc);
 
 END_SW_NS
 
