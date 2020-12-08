@@ -233,7 +233,6 @@ void GameInterface::app_init()
         INITLIST(&Player[i].PanelSpriteList);
 
     LoadKVXFromScript("swvoxfil.txt");    // Load voxels from script file
-    LoadPLockFromScript("swplock.txt");   // Get Parental Lock setup info
 	LoadCustomInfoFromScript("engine/swcustom.txt");	// load the internal definitions. These also apply to the shareware version.
     if (!SW_SHAREWARE)
         LoadCustomInfoFromScript("swcustom.txt");   // Load user customisation information
@@ -395,8 +394,6 @@ void InitLevel(MapRecord *maprec)
     PlayerPanelSetup();
     SectorSetup();
     JS_InitMirrors();
-    JS_InitLockouts();   // Setup the lockout linked lists
-    JS_ToggleLockouts(); // Init lockouts on/off
 
     PlaceSectorObjectsOnTracks();
     PlaceActorsOnTracks();
@@ -569,8 +566,6 @@ void TerminateLevel(void)
 
         INITLIST(&pp->PanelSpriteList);
     }
-
-    JS_UnInitLockouts();
 }
 
 

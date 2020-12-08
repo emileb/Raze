@@ -90,10 +90,6 @@ extern short BossSpriteNum[3];
 
 extern STATE s_NotRestored[];
 
-OrgTileListP otlist[] = {&orgwalllist, &orgwalloverlist, &orgsectorceilinglist, &orgsectorfloorlist};
-
-
-
 //---------------------------------------------------------------------------
 //
 // 
@@ -1373,7 +1369,6 @@ bool GameInterface::SaveGame()
     PANEL_SPRITEp psp,cur,next;
     SECTOR_OBJECTp sop;
     int saveisshot=0;
-    OrgTileP otp, next_otp;
 
     Saveable_Init();
 
@@ -1467,20 +1462,6 @@ bool GameInterface::SaveGame()
 	saveisshot |= so_writeinterpolations(fil);
 	assert(!saveisshot);
 
-    // parental lock
-    for (i = 0; i < (int)SIZ(otlist); i++)
-    {
-        ndx = 0;
-        TRAVERSE(otlist[i], otp, next_otp)
-        {
-            MWRITE(&ndx,sizeof(ndx),1,fil);
-            MWRITE(&otp,sizeof(*otp),1,fil);
-            ndx++;
-        }
-        ndx = -1;
-        MWRITE(&ndx, sizeof(ndx),1,fil);
-    }
-
     return !saveisshot;
 }
 
@@ -1496,7 +1477,6 @@ bool GameInterface::LoadGame()
     SECT_USERp sectu;
     ANIMp a;
     PANEL_SPRITEp psp,next;
-    OrgTileP otp;
 
 
     Saveable_Init();
@@ -1511,7 +1491,7 @@ bool GameInterface::LoadGame()
     for (i = 0; i < MAX_TRACKS; i++)
     {
         if (Track[i].NumPoints == 0)
-        {
+       {
             Track[i].TrackPoint = (TRACK_POINTp)CallocMem(sizeof(TRACK_POINT), 1);
             MREAD(Track[i].TrackPoint, sizeof(TRACK_POINT),1,fil);
         }
@@ -1565,27 +1545,6 @@ bool GameInterface::LoadGame()
     // SO interpolations
     saveisshot |= so_readinterpolations(fil);
     if (saveisshot) { MCLOSE_READ(fil); return false; }
-
-    // parental lock
-    for (i = 0; i < (int)SIZ(otlist); i++)
-    {
-        INITLIST(otlist[i]);
-
-        while (true)
-        {
-            MREAD(&ndx, sizeof(ndx),1,fil);
-
-            if (ndx == -1)
-                break;
-
-            otp = (OrgTileP)CallocMem(sizeof(*otp), 1);
-            ASSERT(otp);
-
-            MREAD(otp, sizeof(*otp),1,fil);
-            INSERT_TAIL(otlist[i],otp);
-        }
-    }
-
 
     MCLOSE_READ(fil);
 
