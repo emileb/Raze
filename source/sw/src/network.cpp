@@ -67,8 +67,6 @@ InitNetPlayerOptions(void)
 //    short pnum;
     PLAYERp pp = Player + myconnectindex;
 
-    strncpy(pp->PlayerName, playername, 32);
-
     // myconnectindex palette
     pp->TeamColor = gs.NetColor;
     if (pp->SpriteP)

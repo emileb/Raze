@@ -499,7 +499,7 @@ class DSWMultiSummaryScreen : public DScreenJob
             ds.Format("%d", i + 1);
             MNU_DrawSmallString(x, y, ds, 0, 0);
 
-            ds.Format("  %-13s", pp->PlayerName);
+            ds.Format("  %-13s", PlayerName(pp-Player));
             MNU_DrawSmallString(x, y, ds, 0, User[pp->PlayerSprite]->spal);
 
             x = STAT_TABLE_X;

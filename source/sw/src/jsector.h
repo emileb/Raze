@@ -38,7 +38,7 @@ typedef enum
     m_normal, m_viewon, m_pissed
 } MIRRORSTATE;
 
-typedef struct
+typedef struct MIRRORTYPE
 {
     short mirrorwall;                   // Wall number containing the mirror
     // tile
@@ -54,13 +54,13 @@ typedef struct
     // level for a
     // max of up to 4 coolie ghosts to spawn.
     bool ismagic;                       // Is this a magic mirror?
-    MIRRORSTATE mstate;                 // What state the mirror is currently
+    short mstate;                 // What state the mirror is currently
     // in
     int maxtics;                       // Tic count used to time mirror
     // events
     int tics;                          // How much viewing time has been
     // used on mirror?
-} MIRRORTYPE, *MIRRORTYPEp;
+} *MIRRORTYPEp;
 
 extern MIRRORTYPE mirror[MAXMIRRORS];
 

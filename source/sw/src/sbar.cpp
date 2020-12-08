@@ -313,7 +313,7 @@ private:
             // move x over according to the number of players
             xs = xoffs[MOD4(pnum)];
 
-            DisplayFragString(&Player[pnum], xs, ys, Player[pnum].PlayerName);
+            DisplayFragString(&Player[pnum], xs, ys, PlayerName(pnum));
         }
     }
 
@@ -1089,14 +1089,15 @@ void UpdateStatusBar()
 
     StatusBar->UpdateStatusBar();
     PLAYERp pp = &Player[screenpeek];
+
     if (pp->cookieTime > 0)
     {
         const int MESSAGE_LINE = 142;    // Used to be 164
         
-        if (!SmallFont2->CanPrint(pp->cookieQuote))
-            DrawConString(160, MESSAGE_LINE, pp->cookieQuote, clamp(pp->cookieTime / 60., 0., 1.));
+        if (!SmallFont2->CanPrint(cookieQuote[screenpeek]))
+            DrawConString(160, MESSAGE_LINE, cookieQuote[screenpeek], clamp(pp->cookieTime / 60., 0., 1.));
         else
-            MNU_DrawSmallString(160, MESSAGE_LINE, pp->cookieQuote, 0, 0, 0, clamp(pp->cookieTime / 60., 0., 1.));
+            MNU_DrawSmallString(160, MESSAGE_LINE, cookieQuote[screenpeek], 0, 0, 0, clamp(pp->cookieTime / 60., 0., 1.));
     }
 }
 

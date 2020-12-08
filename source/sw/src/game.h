@@ -58,7 +58,7 @@ EXTERN_CVAR(Bool, sw_bunnyrockets)
 
 BEGIN_SW_NS
 
-typedef struct
+typedef struct GAME_SET
 {
     // Net Options from Menus
     uint8_t NetGameType;   // 0=DeathMatch [spawn], 1=Cooperative 2=DeathMatch [no spawn]
@@ -70,7 +70,7 @@ typedef struct
     uint8_t NetTimeLimit;  // Limit time of game
     uint8_t NetColor;      // Chosen color for player
     bool NetNuke;
-} GAME_SET, * GAME_SETp;
+} * GAME_SETp;
 
 extern const GAME_SET gs_defaults;
 extern GAME_SET gs;
@@ -802,13 +802,13 @@ typedef void (*PLAYER_ACTION_FUNCp)(PLAYERp);
 
 #include "inv.h"
 
-typedef struct
+typedef struct REMOTE_CONTROL
 {
     short cursectnum,lastcursectnum,pang,filler;
     int xvect,yvect,oxvect,oyvect,slide_xvect,slide_yvect;
     int posx,posy,posz;
     SECTOR_OBJECTp sop_control;
-} REMOTE_CONTROL, *REMOTE_CONTROLp;
+} *REMOTE_CONTROLp;
 
 struct PLAYERstruct
 {
@@ -833,7 +833,7 @@ struct PLAYERstruct
 
     int jump_count, jump_speed;     // jumping
     short down_speed, up_speed; // diving
-    int z_speed,oz_speed; // used for diving and flying instead of down_speed, up_speed
+    int z_speed; // used for diving and flying instead of down_speed, up_speed
     int climb_ndx;
     int hiz,loz;
     int ceiling_dist,floor_dist;
@@ -853,13 +853,6 @@ struct PLAYERstruct
     short slide_ang;
     int slide_dec;
     float drive_avel;
-
-
-
-    // scroll 2D mode stuff
-    int scr_x, scr_y, oscr_x, oscr_y;
-    int scr_xvect, scr_yvect;
-    short scr_ang, oscr_ang, scr_sectnum;
 
     short view_outside_dang;  // outside view delta ang
     short circle_camera_ang;
@@ -960,9 +953,6 @@ struct PLAYERstruct
     short Armor;
     short MaxHealth;
 
-    //char RocketBarrel;
-    char PlayerName[32];
-
     unsigned char UziShellLeftAlt;
     unsigned char UziShellRightAlt;
     unsigned char TeamColor;  // used in team play and also used in regular mulit-play for show
@@ -974,7 +964,6 @@ struct PLAYERstruct
     unsigned char StartColor;       // Darkest color in color range being used
     //short electro[64];
     bool IsAI;                      // Is this and AI character?
-    short fta,ftq;                  // First time active and first time quote, for talking in multiplayer games
     short NumFootPrints;            // Number of foot prints left to lay down
     unsigned char WpnUziType;                // Toggle between single or double uzi's if you own 2.
     unsigned char WpnShotgunType;            // Shotgun has normal or fully automatic fire
@@ -992,14 +981,13 @@ struct PLAYERstruct
     short Heads;                    // Number of Accursed Heads orbiting player
     int PlayerVersion;
 
-    FString cookieQuote;          // Should be an FString but must be POD for now to be storable in a savegame.
     int cookieTime;
 
     char WpnReloadState;
 };
 
 extern PLAYER Player[MAX_SW_PLAYERS_REG+1];
-
+extern FString cookieQuote[MAX_SW_PLAYERS_REG];
 
 //
 // Player Flags
@@ -1103,7 +1091,7 @@ typedef struct
     STATEp *Dive;
 } ACTOR_ACTION_SET,*ACTOR_ACTION_SETp;
 
-typedef struct
+typedef struct ROTATOR
 {
     int pos;           // current position - always moves toward tgt
     int open_dest;     // destination of open position
@@ -1114,13 +1102,13 @@ typedef struct
     int num_walls;     // save off positions of walls for rotator
     int *origx;
     int *origy;
-} ROTATOR, *ROTATORp;
+} *ROTATORp;
 
 //
 // User Extension record
 //
 
-typedef struct
+typedef struct USER
 {
     //
     // Variables that can be used by actors and Player
@@ -1254,7 +1242,7 @@ typedef struct
     short inactive_time; // length of time actor has been unaware of his tgt
     int  sx,sy,sz;
     short sang;
-    char spal;  // save off default palette number
+    uint8_t spal;  // save off default palette number
 
     int ret; //holder for move_sprite return value
 
@@ -1275,7 +1263,7 @@ typedef struct
     int16_t oangdiff;      // Used for interpolating sprite angles
 
     uint8_t filler;
-} USER,*USERp;
+} *USERp;
 
 struct USERSAVE
 {
@@ -1550,7 +1538,7 @@ enum ShrapType
     SHRAP_USER_DEFINED      = 99
 };
 
-typedef struct
+typedef struct SECT_USER
 {
     int dist, flags;
     short depth_fract, depth; // do NOT change this, doubles as a long FIXED point number
@@ -1561,7 +1549,7 @@ typedef struct
           damage,
           number;  // usually used for matching number
     uint8_t    flags2;
-} SECT_USER, *SECT_USERp;
+} *SECT_USERp;
 
 extern SECT_USERp SectUser[MAXSECTORS];
 SECT_USERp SpawnSectUser(short sectnum);
@@ -1614,30 +1602,30 @@ typedef struct
     short sector, angopen, angclosed, angopendir, sang, anginc, wall[17];
 } SWING;
 
-typedef struct
+typedef struct SINE_WAVE_FLOOR
 {
     int floor_origz, ceiling_origz, range;
     short sector, sintable_ndx, speed_shift;
-    char flags;
-} SINE_WAVE_FLOOR, *SINE_WAVE_FLOORp;
+    uint8_t flags;
+} *SINE_WAVE_FLOORp;
 
 #define MAX_SINE_WAVE 6
 extern SINE_WAVE_FLOOR SineWaveFloor[MAX_SINE_WAVE][21];
 
-typedef struct
+typedef struct SINE_WALL
 {
     int orig_xy, range;
     short wall, sintable_ndx, speed_shift, type;
-} SINE_WALL, *SINE_WALLp;
+} *SINE_WALLp;
 
 #define MAX_SINE_WALL 10
 #define MAX_SINE_WALL_POINTS 64
 extern SINE_WALL SineWall[MAX_SINE_WALL][MAX_SINE_WALL_POINTS];
 
-typedef struct
+struct SPRING_BOARD
 {
     short Sector, TimeOut;
-} SPRING_BOARD;
+} ;
 
 extern SPRING_BOARD SpringBoard[20];
 extern SWING Rotate[17];
@@ -2236,6 +2224,7 @@ struct GameInterface : ::GameInterface
 	bool CanSave() override;
 	bool StartGame(FNewGameStartup& gs) override;
 	FSavegameInfo GetSaveSig() override;
+    void SerializeGameState(FSerializer& arc) override;
 	bool LoadGame() override;
 	bool SaveGame() override;
     void SetAmbience(bool on) override { if (on) StartAmbientSound(); else StopAmbientSound(); }

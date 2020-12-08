@@ -128,6 +128,7 @@ extern bool DebugOperate;
 int ChopTics;
 
 PLAYER Player[MAX_SW_PLAYERS_REG + 1];
+FString cookieQuote[MAX_SW_PLAYERS_REG];
 
 // These are a bunch of kens variables for the player
 
@@ -5765,8 +5766,8 @@ char *KilledPlayerMessage(PLAYERp pp, PLAYERp killer)
 {
 #define MAX_KILL_NOTES 16
     short rnd = STD_RANDOM_RANGE(MAX_KILL_NOTES);
-    const char *p1 = pp->PlayerName;
-    const char *p2 = killer->PlayerName;
+    const char *p1 = PlayerName(myconnectindex);
+    const char *p2 = PlayerName(killer-Player);
 
     if (pp->HitBy == killer->PlayerSprite)
     {
@@ -5838,7 +5839,7 @@ DoPlayerDeathMessage(PLAYERp pp, PLAYERp killer)
 
     if (pp == killer && pp == Player + myconnectindex)
     {
-        sprintf(ds,"%s %s",pp->PlayerName,SuicideNote[STD_RANDOM_RANGE(MAX_SUICIDE)]);
+        sprintf(ds,"%s %s",PlayerName(myconnectindex),SuicideNote[STD_RANDOM_RANGE(MAX_SUICIDE)]);
         SEND_OK = true;
     }
     else
@@ -7203,7 +7204,7 @@ domovethings(void)
             pp->cookieTime -= synctics;
             if (pp->cookieTime <= 0)
             {
-                pp->cookieQuote = "";
+                cookieQuote[pnum] = "";
                 pp->cookieTime = 0;
             }
         }
