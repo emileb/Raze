@@ -115,7 +115,7 @@ void GLInstance::DoDraw()
 				}
 				else
 				{
-					FHWModelRenderer mr(*screen->RenderState(), 0);
+					FHWModelRenderer mr(*screen->RenderState(), -1);
 					state.SetDepthFunc(DF_LEqual);
 					state.EnableTexture(true);
 					rs.model->BuildVertexBuffer(&mr);
@@ -428,14 +428,14 @@ void videoShowFrame(int32_t w)
 	screen->mVertexData->Reset();
 	screen->mViewpoints->Clear();
 
-	videoSetBrightness(0);	// immediately reset this after rendering so that the value doesn't stick around in the backend.
+	//videoSetBrightness(0);	// immediately reset this after rendering so that the value doesn't stick around in the backend.
 
 							// After finishing the frame, reset everything for the next frame. This needs to be done better.
 	if (!w)
 	{
 		screen->BeginFrame();
-		bool useSSAO = (gl_ssao != 0);
-		screen->SetSceneRenderTarget(useSSAO);
+		//bool useSSAO = (gl_ssao != 0);
+		//screen->SetSceneRenderTarget(useSSAO);
 		twodpsp.Clear();
 		twod->Clear();
 	}

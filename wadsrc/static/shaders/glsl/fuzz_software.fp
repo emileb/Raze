@@ -18,7 +18,7 @@ int fuzz_random_x_offset[FUZZ_RANDOM_X_SIZE] = int[]
 	19, 26,  8, 87, 86, 64, 11, 37, 31, 47,
 	25,  5, 50, 51, 23,  2, 93, 70, 40, 45
 );
-
+ 
 int fuzzoffset[FUZZTABLE] = int[]
 (
 	 6, 11,  6, 11,  6,  6, 11,  6,  6, 11,
