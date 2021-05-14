@@ -308,7 +308,6 @@ float R_DoomColormap(float light, float z)
 //===========================================================================
 float R_DoomLightingEquation(float light)
 {
-#ifndef PALETTE_EMULATION
 	// z is the depth in view space, positive going into the screen
 	float z;
 	if (((uPalLightLevels >> 8)  & 0xff) == 2)
@@ -325,7 +324,7 @@ float R_DoomLightingEquation(float light)
 		// This is a lot more primitive than Doom's lighting...
 		float numShades = float(uPalLightLevels & 255);
 		float curshade = (1.0 - light) * (numShades - 1.0);
-		float visibility = max(uGlobVis * uLightFactor * abs(z), 0.0);
+		float visibility = max(uGlobVis * uLightFactor * z, 0.0);
 		float shade = clamp((curshade + visibility), 0.0, numShades - 1.0);
 		return clamp(shade * uLightDist, 0.0, 1.0);
 	}
@@ -337,9 +336,6 @@ float R_DoomLightingEquation(float light)
 
 	// Result is the normalized colormap index (0 bright .. 1 dark)
 	return clamp(colormap, 0.0, 31.0) / 32.0;
-#else
-	return 0.0;	// with palette emulation we do not want real lighting.
-#endif
 }
 
 //===========================================================================
@@ -583,7 +579,7 @@ void SetMaterialProps(inout Material material, vec2 texCoord)
 	if ((uTextureMode & TEXF_Detailmap) != 0)
 	{
 		vec4 Detail = texture(detailtexture, texCoord.st * uDetailParms.xy) * uDetailParms.z;
-		material.Base.rgb *= Detail.rgb;
+		material.Base *= Detail;
 	}
 	
 	if ((uTextureMode & TEXF_Glowmap) != 0)
@@ -712,7 +708,7 @@ vec3 AmbientOcclusionColor()
 void main()
 {
 #ifdef NO_CLIPDISTANCE_SUPPORT
-	if (ClipDistanceA.x < 0 || ClipDistanceA.y < 0 || ClipDistanceA.z < 0 || ClipDistanceA.w < 0 || ClipDistanceB.x < 0) discard;
+	if (ClipDistanceA.x < 0.0 || ClipDistanceA.y < 0.0 || ClipDistanceA.z < 0.0 || ClipDistanceA.w < 0.0 || ClipDistanceB.x < 0.0) discard;
 #endif
 
 #ifndef LEGACY_USER_SHADER
@@ -781,13 +777,13 @@ void main()
 		if ((uTextureMode & 0xffff) == 7)
 		{
 			float gray = grayscale(frag);
-			vec4 cm = (uObjectColor + gray * (uAddColor - uObjectColor)) * 2;
+			vec4 cm = (uObjectColor + gray * (uAddColor - uObjectColor)) * 2.0;
 			frag = vec4(clamp(cm.rgb, 0.0, 1.0), frag.a);
 		}
 			frag = frag * ProcessLight(material, vColor);
 		frag.rgb = frag.rgb + uFogColor.rgb;
 	}
-	FragColor = vec4(frag.rgb * uDynLightColor.a, frag.a);	// apply a global fade factor.
+	FragColor = frag;
 #ifdef GBUFFER_PASS
 	FragFog = vec4(AmbientOcclusionColor(), 1.0);
 	FragNormal = vec4(vEyeNormal.xyz * 0.5 + 0.5, 1.0);
