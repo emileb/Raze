@@ -62,7 +62,11 @@ const char *GetVersionString();
 #define GAMENAMELOWERCASE "raze"
 #define FORUM_URL "http://forum.zdoom.org/"
 #define BUGS_FORUM_URL	"http://forum.zdoom.org/viewforum.php?f=340"
+#ifdef __ANDROID__
+#define ENGINERES_FILE "../res/raze.pk3"
+#else
 #define ENGINERES_FILE GAMENAMELOWERCASE ".pk3"
+#endif
 
 #define SAVESIG_DN3D GAMENAME ".Duke"
 #define SAVESIG_BLD GAMENAME ".Blood"
