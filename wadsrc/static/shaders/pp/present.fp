@@ -11,7 +11,7 @@ vec4 ApplyGamma(vec4 c)
 
 	vec3 valgray;
 	if (GrayFormula == 0)
-		valgray = vec3(c.r + c.g + c.b) * (1 - Saturation) / 3 + c.rgb * Saturation;
+		valgray = vec3(c.r + c.g + c.b) * (1.0 - Saturation) / 3.0 + c.rgb * Saturation;
 	else
 		valgray = mix(vec3(dot(c.rgb, vec3(0.3,0.56,0.14))), c.rgb, Saturation);
 	vec3 val = valgray * Contrast - (Contrast - 1.0) * 0.5;
@@ -31,7 +31,7 @@ vec4 Dither(vec4 c)
 
 vec4 sRGBtoLinear(vec4 c)
 {
-	return vec4(mix(pow((c.rgb + 0.055) / 1.055, vec3(2.4)), c.rgb / 12.92, step(c.rgb, vec3(0.04045))), c.a);
+	return vec4(mix(c.rgb / 12.92, pow((c.rgb + 0.055) / 1.055, vec3(2.4)), step(c.rgb, vec3(0.04045))), c.a);
 }
 
 vec4 ApplyHdrMode(vec4 c)
