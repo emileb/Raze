@@ -103,17 +103,11 @@ LOCAL_C_INCLUDES := \
 
 
 ANDROID_SRC_FILES = \
-    ../../Clibs_OpenTouch/idtech1/gzdoom_game_interface.cpp \
-    ../../Clibs_OpenTouch/idtech1/touch_interface.cpp \
-    ../../Clibs_OpenTouch/idtech1/android_jni.cpp \
-    ../mobile/src/i_specialpaths_android.cpp \
-
-    #../mobile/src/extrafiles/etc1.cpp
-
-ANDROID_SRC_FILES = ../mobile/src/i_specialpaths_android.cpp \
+     ../mobile/src/i_specialpaths_android.cpp \
      ../mobile/src/game_interface.cpp \
-    ../../Clibs_OpenTouch/idtech1/touch_interface.cpp \
-    ../../Clibs_OpenTouch/idtech1/android_jni.cpp \
+     ../../Clibs_OpenTouch/raze/touch_interface.cpp \
+     ../../Clibs_OpenTouch/touch_interface_base.cpp \
+     ../../Clibs_OpenTouch/android_jni_inc.cpp \
 
 
 PLAT_POSIX_SOURCES = \
