@@ -469,8 +469,8 @@ void Mobile_IN_Move(ControlInfo &input)
 
 	if(!blockMove)
 	{
-		input.dz += forwardmove_android;
-		input.dx -= sidemove_android;
+		input.dz += forwardmove_android * 2;
+		input.dx -= sidemove_android * 2;
 	}
 
 	if(!blockLook)
