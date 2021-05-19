@@ -70,6 +70,15 @@ void G_AddExternalSearchPaths(TArray<FString> &searchpaths)
 {
 	searchpaths.Append(I_GetSteamPath());
 	searchpaths.Append(I_GetGogPaths());
+#ifdef __MOBILE__
+	TArray<FString> result;
+	result.Push("./addons/nw");
+	result.Push("./addons/dc");
+	result.Push("./addons/vacation");
+	result.Push("./addons/cryptic");
+
+	searchpaths.Append(result);
+#endif
 }
 
 
@@ -244,6 +253,10 @@ TArray<FString> CollectSearchPaths()
 			}
 		}
 	}
+
+#ifdef __MOBILE__
+	G_AddExternalSearchPaths(searchpaths);
+#endif
 	// Unify and remove trailing slashes
 	for (auto &str : searchpaths)
 	{
