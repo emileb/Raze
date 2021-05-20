@@ -469,21 +469,21 @@ void Mobile_IN_Move(ControlInfo &input)
 
 	if(!blockMove)
 	{
-		input.dz += forwardmove_android * 2;
-		input.dx -= sidemove_android * 2;
+		input.dz += forwardmove_android ;
+		input.dx -= sidemove_android;
 	}
 
 	if(!blockLook)
 	{
 		// Add pitch
-		input.dpitch += -look_pitch_mouse * 70;
+		input.dpitch += -look_pitch_mouse * 35;
 		look_pitch_mouse = 0;
-		input.dpitch += look_pitch_joy * 2;
+		input.dpitch += look_pitch_joy * 1;
 
 		// Add yaw
-		input.dyaw += -look_yaw_mouse * 200;
+		input.dyaw += -look_yaw_mouse * 100;
 		look_yaw_mouse = 0;
-		input.dyaw += -look_yaw_joy * 3;
+		input.dyaw += -look_yaw_joy * 1;
 	}
 
 	if(cmd_to_run)
