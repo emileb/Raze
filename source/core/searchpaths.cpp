@@ -72,10 +72,18 @@ void G_AddExternalSearchPaths(TArray<FString> &searchpaths)
 	searchpaths.Append(I_GetGogPaths());
 #ifdef __MOBILE__
 	TArray<FString> result;
+	//Duke
 	result.Push("./addons/nw");
 	result.Push("./addons/dc");
 	result.Push("./addons/vacation");
+
+	// Blood
 	result.Push("./addons/cryptic");
+	result.Push("./cryptic");
+
+	// SW
+	result.Push("./addons/");
+
 
 	searchpaths.Append(result);
 #endif
