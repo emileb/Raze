@@ -82,7 +82,8 @@ void G_AddExternalSearchPaths(TArray<FString> &searchpaths)
 	result.Push("./cryptic");
 
 	// SW
-	result.Push("./addons/");
+	result.Push("./addons/td");
+	result.Push("./addons/wt");
 
 
 	searchpaths.Append(result);
