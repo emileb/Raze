@@ -41,6 +41,7 @@ LOCAL_C_INCLUDES := \
 	$(GZDOOM_TOP_PATH)/source/core/menu \
 	$(GZDOOM_TOP_PATH)/source/core/input \
 	$(GZDOOM_TOP_PATH)/source/platform \
+	$(GZDOOM_TOP_PATH)/source/common/cutscenes \
 	$(GZDOOM_TOP_PATH)/source/common/audio/sound \
 	$(GZDOOM_TOP_PATH)/source/common/audio/music \
 	$(GZDOOM_TOP_PATH)/source/common/2d \
@@ -77,7 +78,7 @@ LOCAL_C_INCLUDES := \
 	$(GZDOOM_TOP_PATH)/source/common/platform/posix/sdl \
 	$(GZDOOM_TOP_PATH)/source/core/rendering \
 	$(GZDOOM_TOP_PATH)/source/core/rendering/scene \
-	$(GZDOOM_TOP_PATH)/source/libsmackerdec/include \
+	$(GZDOOM_TOP_PATH)/source/common/thirdparty/libsmackerdec/include \
 	$(GZDOOM_TOP_PATH)/source/thirdparty/include \
 	$(GZDOOM_TOP_PATH)/source/build/include \
     $(GZDOOM_TOP_PATH)/libraries/lzma/C \
@@ -153,11 +154,6 @@ POLYBACKEND_SOURCES = \
 	common/textures/hires/hqnx/hq4x.cpp \
 	common/textures/hires/xbr/xbrz.cpp \
 	common/textures/hires/xbr/xbrz_old.cpp \
-	libsmackerdec/src/BitReader.cpp \
-	libsmackerdec/src/FileStream.cpp \
-	libsmackerdec/src/HuffmanVLC.cpp \
-	libsmackerdec/src/LogError.cpp \
-	libsmackerdec/src/SmackerDecoder.cpp \
 	common/utility/matrix.cpp \
     gitinfo.cpp \
 
@@ -171,8 +167,10 @@ PCH_SOURCES = \
 	build/src/engine.cpp \
 	build/src/mdsprite.cpp \
 	build/src/polymost.cpp \
-	core/movie/playmve.cpp \
-	core/movie/movieplayer.cpp \
+    common/cutscenes/playmve.cpp \
+	common/cutscenes/movieplayer.cpp \
+	common/cutscenes/screenjob.cpp \
+	core/razefont.cpp \
 	core/automap.cpp \
 	core/cheats.cpp \
 	core/cheathandler.cpp \
@@ -429,6 +427,11 @@ PCH_SOURCES = \
 	common/scripting/frontend/zcc_parser.cpp \
 	common/scripting/backend/vmbuilder.cpp \
 	common/scripting/backend/codegen.cpp \
+	common/thirdparty/libsmackerdec/src/BitReader.cpp \
+    common/thirdparty/libsmackerdec/src/FileStream.cpp\
+    common/thirdparty/libsmackerdec/src/HuffmanVLC.cpp \
+    common/thirdparty/libsmackerdec/src/LogError.cpp \
+    common/thirdparty/libsmackerdec/src/SmackerDecoder.cpp \
 	core/textures/buildtiles.cpp \
 	core/textures/skytexture.cpp \
 	core/textures/hightile.cpp \
