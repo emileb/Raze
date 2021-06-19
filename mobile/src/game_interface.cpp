@@ -257,7 +257,7 @@ void PortableAction(int state, int action)
 
 		case PORT_ACT_WEAP0:
 			if(state)
-				PortableCommand("slot 0");
+				PortableCommand("slot 10");
 			break;
 
 		case PORT_ACT_WEAP1:
