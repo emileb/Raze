@@ -66,30 +66,54 @@ void AddSearchPath(TArray<FString>& searchpaths, const char* path)
 
 #ifndef _WIN32
 
+#ifdef __MOBILE__
+
+static void AddBothPath(FString path, TArray<FString> &result)
+{
+	result.Push(path);
+	auto v = Args->CheckValue("-secondary_path");
+	if (v)
+	{
+		result.Push(FString(v) + "/" + path);
+	}
+}
+
+void G_AddExternalSearchPaths(TArray<FString> &searchpaths)
+{
+	TArray<FString> result;
+
+	auto v = Args->CheckValue("-secondary_path");
+	if (v)
+	{
+		result.Push(FString(v) + "/");
+	}
+
+	//Duke
+	AddBothPath("./addons/nw", result);
+	AddBothPath("./addons/dc", result);
+	AddBothPath("./addons/vacation", result);
+
+	// Blood
+	AddBothPath("./addons/cryptic", result);
+	AddBothPath("./cryptic", result);
+
+	// SW
+	AddBothPath("./addons/td", result);
+	AddBothPath("./addons/wt", result);
+
+
+	searchpaths.Append(result);
+}
+
+#else
+
 void G_AddExternalSearchPaths(TArray<FString> &searchpaths)
 {
 	searchpaths.Append(I_GetSteamPath());
 	searchpaths.Append(I_GetGogPaths());
-#ifdef __MOBILE__
-	TArray<FString> result;
-	//Duke
-	result.Push("./addons/nw");
-	result.Push("./addons/dc");
-	result.Push("./addons/vacation");
-
-	// Blood
-	result.Push("./addons/cryptic");
-	result.Push("./cryptic");
-
-	// SW
-	result.Push("./addons/td");
-	result.Push("./addons/wt");
-
-
-	searchpaths.Append(result);
-#endif
 }
 
+#endif
 
 #else
 //-------------------------------------------------------------------------
