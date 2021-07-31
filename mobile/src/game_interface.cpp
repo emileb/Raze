@@ -329,6 +329,11 @@ void PortableAction(int state, int action)
 			if(state)
 				PortableCommand("invnext");
 			break;
+
+		case PORT_ACT_WEAP_ALT:
+			if(state)
+				PortableCommand("weapalt");
+			break;
 		}
 	}
 }

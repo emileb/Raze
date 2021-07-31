@@ -491,6 +491,3 @@ LOCAL_SHARED_LIBRARIES := touchcontrols openal SDL2 saffal zmusic
 
 include $(BUILD_SHARED_LIBRARY)
 
-
-
-
