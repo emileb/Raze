@@ -389,7 +389,7 @@ void FGLRenderState::ApplyState()
 		mMaterial.mChanged = false;
 	}
 
-	if (mBias.mChanged)
+	if (mBias.mFactor != mBias.mFactorCurrent || mBias.mUnits != mBias.mUnitsCurrent)
 	{
 		if (mBias.mFactor == 0 && mBias.mUnits == 0)
 		{
@@ -400,7 +400,8 @@ void FGLRenderState::ApplyState()
 			glEnable(GL_POLYGON_OFFSET_FILL);
 		}
 		glPolygonOffset(mBias.mFactor, mBias.mUnits);
-		mBias.mChanged = false;
+		mBias.mFactorCurrent = mBias.mFactor;
+		mBias.mUnitsCurrent = mBias.mUnits;
 	}
 }
 

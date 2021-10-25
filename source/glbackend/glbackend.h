@@ -100,14 +100,12 @@ public:
 	{
 		renderState.mBias.mFactor = a;
 		renderState.mBias.mUnits = b;
-		renderState.mBias.mChanged = true;
 	}
 
 	void ClearDepthBias()
 	{
 		renderState.mBias.mFactor = 0;
 		renderState.mBias.mUnits = 0;
-		renderState.mBias.mChanged = true;
 	}
 
 	void SetPalswap(int index);

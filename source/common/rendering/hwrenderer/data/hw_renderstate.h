@@ -109,13 +109,16 @@ struct FDepthBiasState
 {
 	float mFactor;
 	float mUnits;
-	bool mChanged;
+
+	float mFactorCurrent;
+	float mUnitsCurrent;
 
 	void Reset()
 	{
 		mFactor = 0;
 		mUnits = 0;
-		mChanged = false;
+		mFactorCurrent = 0;
+		mUnitsCurrent = 0;
 	}
 };
 
@@ -585,7 +588,6 @@ public:
 
 	void SetDepthBias(float a, float b)
 	{
-		mBias.mChanged = mBias.mFactor != a || mBias.mUnits != b;
 		mBias.mFactor = a;
 		mBias.mUnits = b;
 	}
@@ -597,7 +599,6 @@ public:
 
 	void ClearDepthBias()
 	{
-		mBias.mChanged = mBias.mFactor != 0 || mBias.mUnits != 0;
 		mBias.mFactor = 0;
 		mBias.mUnits = 0;
 	}

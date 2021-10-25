@@ -203,10 +203,11 @@ void VkRenderState::Apply(int dt)
 
 void VkRenderState::ApplyDepthBias()
 {
-	if (mBias.mChanged)
+	if (mBias.mFactor != mBias.mFactorCurrent || mBias.mUnits != mBias.mUnitsCurrent)
 	{
 		mCommandBuffer->setDepthBias(mBias.mUnits, 0.0f, mBias.mFactor);
-		mBias.mChanged = false;
+		mBias.mFactorCurrent = mBias.mFactor;
+		mBias.mUnitsCurrent = mBias.mUnits;
 	}
 }
 
@@ -252,7 +253,6 @@ void VkRenderState::ApplyRenderPass(int dt)
 		mScissorChanged = true;
 		mViewportChanged = true;
 		mStencilRefChanged = true;
-		mBias.mChanged = true;
 
 		BeginRenderPass(mCommandBuffer);
 	}
