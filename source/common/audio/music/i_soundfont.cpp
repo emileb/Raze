@@ -424,6 +424,10 @@ void FSoundFontManager::CollectSoundfonts()
 		}
 	}
 
+#ifdef __MOBILE__
+	ProcessOneFile(NicePath("../res/raze.sf2"));
+#endif
+
 	if (soundfonts.Size() == 0)
 	{
 		ProcessOneFile(NicePath("$PROGDIR/soundfonts/" GAMENAMELOWERCASE ".sf2"));
