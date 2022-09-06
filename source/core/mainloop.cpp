@@ -88,6 +88,7 @@
 #include "savegamehelp.h"
 #include "v_draw.h"
 #include "gamehud.h"
+#include "wipe.h"
 
 CVAR(Bool, vid_activeinbackground, false, CVAR_ARCHIVE | CVAR_GLOBALCONFIG)
 CVAR(Bool, r_ticstability, true, CVAR_ARCHIVE | CVAR_GLOBALCONFIG)
@@ -104,6 +105,7 @@ bool r_NoInterpolate;
 int entertic;
 int oldentertics;
 int gametic;
+int nextwipe = wipe_None;
 
 FString savename;
 FString BackupSaveGame;
@@ -202,20 +204,7 @@ static void GameTicker()
 		case ga_completed:
 			FX_StopAllSounds();
 			FX_SetReverb(0);
-			if (g_nextmap == currentLevel)
-			{
-				// if the same level is restarted, skip any progression stuff like summary screens or cutscenes.
-				gi->FreeLevelData();
-				gameaction = ga_level;
-				gi->NextLevel(g_nextmap, g_nextskill);
-				ResetStatusBar();
-				Net_ClearFifo();
-			}
-			else
-			{
-				gi->LevelCompleted(g_nextmap, g_nextskill);
-				assert(gameaction != ga_nothing);
-			}
+			gi->LevelCompleted(g_nextmap, g_nextskill);
 			break;
 
 		case ga_nextlevel:
@@ -396,17 +385,39 @@ static void GameTicker()
 }
 
 
+void DrawOverlays()
+{
+	NetUpdate();			// send out any new accumulation
+
+	if (gamestate != GS_INTRO) // do not draw overlays on the intros
+	{
+		// Draw overlay elements
+		CT_Drawer();
+		C_DrawConsole();
+		M_Drawer();
+		FStat::PrintStat(twod);
+	}
+	DrawRateStuff();
+}
+
 //==========================================================================
 //
 // Display
 //
 //==========================================================================
+EXTERN_CVAR(Bool, vid_renderer);
 
 void Display()
 {
 	if (screen == nullptr || (!AppActive && (screen->IsFullscreen() || !vid_activeinbackground)))
 	{
 		return;
+	}
+	
+	FTexture* wipestart = nullptr;
+	if (nextwipe != wipe_None)
+	{
+		wipestart = screen->WipeStartScreen();
 	}
 
 	screen->FrameTime = I_msTimeFS();
@@ -428,7 +439,6 @@ void Display()
 
 	case GS_INTRO:
 	case GS_CUTSCENE:
-		// screen jobs are not bound by the game ticker so they need to be ticked in the display loop.
 		ScreenJobDraw();
 		break;
 
@@ -440,6 +450,7 @@ void Display()
 			screen->SetSceneRenderTarget(gl_ssao != 0);
 			updateModelInterpolation();
 			gi->Render();
+			if (vid_renderer == 0) videoShowFrame();
 			DrawFullscreenBlends();
 			drawMapTitle();
 			break;
@@ -450,20 +461,15 @@ void Display()
 		twod->ClearScreen();
 		break;
 	}
-
-	NetUpdate();			// send out any new accumulation
-
-	if (gamestate != GS_INTRO) // do not draw overlays on the intros
+	
+	if (nextwipe == wipe_None)
+		DrawOverlays();
+	else
 	{
-		// Draw overlay elements
-		CT_Drawer();
-		C_DrawConsole();
-		M_Drawer();
-		FStat::PrintStat(twod);
+		PerformWipe(wipestart, screen->WipeEndScreen(), nextwipe, true, DrawOverlays);
+		nextwipe = wipe_None;
 	}
-	DrawRateStuff();
-
-	videoShowFrame(1);
+	screen->Update();
 }
 
 //==========================================================================
@@ -564,7 +570,7 @@ void TryRunTics (void)
 		counts = realtics;
 	else
 		counts = availabletics;
-	
+
 	// Uncapped framerate needs seprate checks
 	if (counts == 0 && !doWait)
 	{

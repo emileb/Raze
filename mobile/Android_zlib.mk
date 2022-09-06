@@ -5,7 +5,7 @@ LOCAL_PATH := $(call my-dir)/../libraries/zlib
 include $(CLEAR_VARS)
 
 
-LOCAL_MODULE  := zlib_gl3
+LOCAL_MODULE  := zlib_dev
 
 LOCAL_CFLAGS = -Wall
 
