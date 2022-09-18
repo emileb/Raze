@@ -218,6 +218,10 @@ void PortableAction(int state, int action)
 			buttonChange(state, gamefunc_Jump);
 			break;
 
+		case PORT_ACT_KICK:
+			buttonChange(state, gamefunc_Quick_Kick);
+			break;
+
 		case PORT_ACT_DOWN:
 			buttonChange(state, gamefunc_Crouch);
 			break;
