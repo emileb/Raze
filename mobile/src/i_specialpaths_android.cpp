@@ -40,11 +40,13 @@
 
 #include "version.h"	// for GAMENAME
 
+extern "C" const char *userFilesPath_c;
+
 FString M_GetAppDataPath(bool create)
 {
 	// Don't use GAME_DIR and such so that ZDoom and its child ports can
 	// share the node cache.
-	FString path = NicePath("../user_files/raze/config/" GAMENAMELOWERCASE);
+	FString path = NicePath(FStringf("%s/raze/config/%s", userFilesPath_c, GAMENAMELOWERCASE));
 	if (create)
 	{
 		CreatePath(path);
@@ -57,7 +59,7 @@ FString GetUserFile (const char *file)
 	FString path;
 	struct stat info;
 
-	path = NicePath("../user_files/raze/config/");
+	path = NicePath(FStringf("%s/raze/config/", userFilesPath_c));
 
 	if (stat (path, &info) == -1)
 	{
@@ -82,7 +84,7 @@ FString M_GetCachePath(bool create)
 {
 	// Don't use GAME_DIR and such so that ZDoom and its child ports can
 	// share the node cache.
-	FString path = NicePath("../user_files/raze/cache/");
+	FString path = NicePath(FStringf("%s/raze/cache/", userFilesPath_c));
 	if (create)
 	{
 		CreatePath(path);
@@ -128,7 +130,7 @@ FString M_GetConfigPath(bool for_reading)
 
 FString M_GetScreenshotsPath()
 {
-	return NicePath("../user_files/raze/screenshots/");
+	return NicePath(FStringf("%s/raze/screenshots/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -141,7 +143,7 @@ FString M_GetScreenshotsPath()
 
 FString M_GetSavegamesPath()
 {
-	return NicePath("../user_files/raze/saves/");
+	return NicePath(FStringf("%s/raze/saves/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -154,7 +156,7 @@ FString M_GetSavegamesPath()
 
 FString M_GetDocumentsPath()
 {
-	return NicePath("../user_files/raze/");
+	return NicePath(FStringf("%s/raze/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -167,7 +169,7 @@ FString M_GetDocumentsPath()
 
 FString M_GetDemoPath()
 {
-	return NicePath("../user_files/raze/demos");
+	return NicePath(FStringf("%s/raze/demos", userFilesPath_c));
 }
 
 //===========================================================================
