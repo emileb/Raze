@@ -416,7 +416,9 @@ void D_AddDirectory(TArray<FString>& wadfiles, const char* dir, const char *file
 // or nullptr if it could not be found.
 //
 //==========================================================================
-
+#ifdef __MOBILE__
+extern "C" const char *resFilePath_c;
+#endif
 const char* BaseFileSearch(const char* file, const char* ext, bool lookfirstinprogdir, FConfigFile* config)
 {
 	static char wad[ZPATH_MAX];
@@ -465,7 +467,7 @@ const char* BaseFileSearch(const char* file, const char* ext, bool lookfirstinpr
 	}
 
 #ifdef __MOBILE__
-	mysnprintf(wad, countof(wad), "./res/%s", file);
+	mysnprintf(wad, countof(wad), "%s/%s", resFilePath_c, file);
 	if (DirEntryExists(wad))
 	{
 		return wad;
