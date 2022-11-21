@@ -124,6 +124,9 @@ FString	savegamefile;
 // 
 //
 //==========================================================================
+#ifdef __MOBILE__
+void Mobile_IN_Move(ControlInfo &input);
+#endif
 
 void G_BuildTiccmd(ticcmd_t* cmd) 
 {
@@ -137,7 +140,12 @@ void G_BuildTiccmd(ticcmd_t* cmd)
 	}
 	cmd->ucmd = {};
 	I_GetEvent();
+
+#ifdef __MOBILE__
+	Mobile_IN_Move(input);
+#endif
 	getInput(inputScale, gi->getConsoleAngles(), &cmd->ucmd);
+
 	cmd->consistency = consistency[myconnectindex][(maketic / ticdup) % BACKUPTICS];
 }
 

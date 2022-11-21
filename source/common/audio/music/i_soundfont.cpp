@@ -388,6 +388,9 @@ void FSoundFontManager::ProcessOneFile(const FString &fn)
 //
 //
 //==========================================================================
+#ifdef __MOBILE__
+extern "C" const char *resFilePath_c;
+#endif
 
 void FSoundFontManager::CollectSoundfonts()
 {
@@ -428,6 +431,11 @@ void FSoundFontManager::CollectSoundfonts()
 			}
 		}
 	}
+
+#ifdef __MOBILE__
+	FStringf sf2path("%s/%s", resFilePath_c, "raze.sf2");
+	ProcessOneFile(NicePath(sf2path));
+#endif
 
 	if (soundfonts.Size() == 0)
 	{
