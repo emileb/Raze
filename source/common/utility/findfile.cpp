@@ -472,7 +472,8 @@ const char* BaseFileSearch(const char* file, const char* ext, bool lookfirstinpr
 	mysnprintf(wad, countof(wad), "%s/%s", resFilePath_c, file);
 	if (DirEntryExists(wad))
 	{
-		return wad;
+        BFSwad = wad;
+		return BFSwad.GetChars();
 	}
 #endif
 	// Retry, this time with a default extension
