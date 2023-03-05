@@ -7,24 +7,15 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := raze_dev
 
-LOCAL_CFLAGS   := -funsigned-char  -DHAVE_GLES2 -DUSE_OPENGL  -DNO_CLOCK_GETTIME -DUSE_GL_HW_BUFFERS -fvisibility=hidden -frtti  -D__MOBILE__  -DOPNMIDI_DISABLE_GX_EMULATOR -DGZDOOM  -DGZDOOM_GL3 -D__STDINT_LIMITS -DENGINE_NAME=\"gzdoom_dev\"
-#-DNO_PIX_BUFF
-#-DUSE_GL_HW_BUFFERS
-#-DHAVE_VULKAN
-#-DUSE_GL_HW_BUFFERS
+LOCAL_CFLAGS   := -funsigned-char -DHAVE_GLES2 -DUSE_OPENGL -DNO_CLOCK_GETTIME -DUSE_GL_HW_BUFFERS -fvisibility=hidden -frtti  -D__MOBILE__  -DOPNMIDI_DISABLE_GX_EMULATOR -DGZDOOM  -DGZDOOM_GL3 -D__STDINT_LIMITS -DENGINE_NAME=\"raze_dev\"
 
-LOCAL_CPPFLAGS := -include g_pch.h -DHAVE_FLUIDSYNTH -DHAVE_MPG123 -DHAVE_SNDFILE -std=c++17  -Wno-inconsistent-missing-override -Werror=format-security  -fexceptions -fpermissive -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D__forceinline=inline -DNO_GTK -DNO_SSE
+LOCAL_CPPFLAGS := -include g_pch.h -DHAVE_FLUIDSYNTH -DHAVE_MPG123 -DHAVE_SNDFILE -std=c++17 -Wno-inconsistent-missing-override -Werror=format-security  -fexceptions -fpermissive -Dstricmp=strcasecmp -Dstrnicmp=strncasecmp -D__forceinline=inline -DNO_GTK -DNO_SSE
 
 LOCAL_CFLAGS  += -DNO_SEND_STATS
 
 LOCAL_CFLAGS  += -DOPNMIDI_USE_LEGACY_EMULATOR
 LOCAL_CFLAGS  += -DADLMIDI_DISABLE_MUS_SUPPORT -DADLMIDI_DISABLE_XMI_SUPPORT -DADLMIDI_DISABLE_MIDI_SEQUENCER
 LOCAL_CFLAGS  += -DOPNMIDI_DISABLE_MUS_SUPPORT -DOPNMIDI_DISABLE_XMI_SUPPORT -DOPNMIDI_DISABLE_MIDI_SEQUENCER
-
-ifeq ($(BUILD_SERIAL),1)
-LOCAL_CPPFLAGS += -DANTI_HACK 
-endif
-
 	
 LOCAL_C_INCLUDES := \
     $(TOP_DIR)/ \
@@ -482,9 +473,8 @@ LOCAL_SRC_FILES = \
 	common/thirdparty/math/fastsin.cpp \
 
 
-
 LOCAL_LDLIBS := -ldl -llog -lOpenSLES
-LOCAL_LDLIBS +=  -lEGL -lGLESv1_CM
+LOCAL_LDLIBS += -lEGL -lGLESv1_CM
 
 LOCAL_STATIC_LIBRARIES :=  SDL2_net zlib_dev lzma_dev gdtoa_dev  bzip2_dev logwritter jpeg vpx_dev tess_dev
 LOCAL_SHARED_LIBRARIES := touchcontrols openal SDL2 saffal zmusic
