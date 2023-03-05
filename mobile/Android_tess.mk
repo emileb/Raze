@@ -5,7 +5,7 @@ LOCAL_PATH := $(call my-dir)/../libraries/libtess
 include $(CLEAR_VARS)
 
 
-LOCAL_MODULE  := tess_dev
+LOCAL_MODULE  := tess_1.5
 
 LOCAL_CFLAGS :=
 

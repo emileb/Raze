@@ -46,7 +46,7 @@ FString M_GetAppDataPath(bool create)
 {
 	// Don't use GAME_DIR and such so that ZDoom and its child ports can
 	// share the node cache.
-	FString path = NicePath(FStringf("%s/raze_dev/config/%s", userFilesPath_c, GAMENAMELOWERCASE));
+	FString path = NicePath(FStringf("%s/raze_1.5/config/%s", userFilesPath_c, GAMENAMELOWERCASE));
 	if (create)
 	{
 		CreatePath(path);
@@ -59,7 +59,7 @@ FString GetUserFile (const char *file)
 	FString path;
 	struct stat info;
 
-	path = NicePath(FStringf("%s/raze_dev/config/", userFilesPath_c));
+	path = NicePath(FStringf("%s/raze_1.5/config/", userFilesPath_c));
 
 	if (stat (path, &info) == -1)
 	{
@@ -84,7 +84,7 @@ FString M_GetCachePath(bool create)
 {
 	// Don't use GAME_DIR and such so that ZDoom and its child ports can
 	// share the node cache.
-	FString path = NicePath(FStringf("%s/raze_dev/cache/", userFilesPath_c));
+	FString path = NicePath(FStringf("%s/raze_1.5/cache/", userFilesPath_c));
 	if (create)
 	{
 		CreatePath(path);
@@ -130,7 +130,7 @@ FString M_GetConfigPath(bool for_reading)
 
 FString M_GetScreenshotsPath()
 {
-	return NicePath(FStringf("%s/raze_dev/screenshots/", userFilesPath_c));
+	return NicePath(FStringf("%s/raze_1.5/screenshots/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -143,7 +143,7 @@ FString M_GetScreenshotsPath()
 
 FString M_GetSavegamesPath()
 {
-	return NicePath(FStringf("%s/raze_dev/saves/", userFilesPath_c));
+	return NicePath(FStringf("%s/raze_1.5/saves/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -156,7 +156,7 @@ FString M_GetSavegamesPath()
 
 FString M_GetDocumentsPath()
 {
-	return NicePath(FStringf("%s/raze_dev/", userFilesPath_c));
+	return NicePath(FStringf("%s/raze_1.5/", userFilesPath_c));
 }
 
 //===========================================================================
@@ -169,7 +169,7 @@ FString M_GetDocumentsPath()
 
 FString M_GetDemoPath()
 {
-	return NicePath(FStringf("%s/raze_dev/demos", userFilesPath_c));
+	return NicePath(FStringf("%s/raze_1.5/demos", userFilesPath_c));
 }
 
 //===========================================================================

@@ -65,7 +65,7 @@ const char *GetVersionString();
 #define FORUM_URL "http://forum.zdoom.org/"
 #define BUGS_FORUM_URL	"http://forum.zdoom.org/viewforum.php?f=340"
 #ifdef __ANDROID__
-#define ENGINERES_FILE "raze_dev.pk3"
+#define ENGINERES_FILE "raze_1.5.pk3"
 #else
 #define ENGINERES_FILE GAMENAMELOWERCASE ".pk3"
 #endif

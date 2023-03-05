@@ -5,7 +5,7 @@ LOCAL_PATH := $(call my-dir)/../libraries/lzma
 include $(CLEAR_VARS)
 
 
-LOCAL_MODULE    := lzma_dev
+LOCAL_MODULE    := lzma_1.5
 
 LOCAL_CFLAGS = -Wall -fomit-frame-pointer -D_7ZIP_ST
 

@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 
 #LOCAL_SHORT_COMMANDS := true
 
-LOCAL_MODULE    := raze_dev
+LOCAL_MODULE    := raze_1.5
 
 LOCAL_CFLAGS   := -funsigned-char  -DHAVE_GLES2 -DUSE_OPENGL  -DNO_CLOCK_GETTIME -DUSE_GL_HW_BUFFERS -fvisibility=hidden -frtti  -D__MOBILE__  -DOPNMIDI_DISABLE_GX_EMULATOR -DGZDOOM  -DGZDOOM_GL3 -D__STDINT_LIMITS -DENGINE_NAME=\"gzdoom_dev\"
 #-DNO_PIX_BUFF
@@ -487,7 +487,7 @@ LOCAL_SRC_FILES = \
 LOCAL_LDLIBS := -ldl -llog -lOpenSLES
 LOCAL_LDLIBS +=  -lEGL -lGLESv1_CM
 
-LOCAL_STATIC_LIBRARIES :=  SDL2_net zlib_dev lzma_dev gdtoa_dev  bzip2_dev logwritter jpeg vpx_dev tess_dev
+LOCAL_STATIC_LIBRARIES :=  SDL2_net zlib_1.5 lzma_1.5 gdtoa_1.5  bzip2_1.5 logwritter jpeg vpx_1.5 tess_1.5
 LOCAL_SHARED_LIBRARIES := touchcontrols openal SDL2 saffal zmusic
 
 include $(BUILD_SHARED_LIBRARY)
