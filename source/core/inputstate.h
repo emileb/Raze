@@ -108,4 +108,7 @@ inline void getHidInput(HIDInput* const hidInput)
 {
 	inputState.GetMouseDelta(hidInput);
 	if (use_joystick) I_GetAxes(hidInput->joyaxes);
+
+	void Mobile_IN_Move(HIDInput *input);
+	Mobile_IN_Move(hidInput);
 }

@@ -473,28 +473,28 @@ void Mobile_AM_controls(double *zoom, double *pan_x, double *pan_y)
 
 extern "C" int blockGamepad(void);
 
-void Mobile_IN_Move(ControlInfo &input)
+void Mobile_IN_Move(HIDInput *input)
 {
 	int blockMove = blockGamepad() & ANALOGUE_AXIS_FWD;
 	int blockLook = blockGamepad() & ANALOGUE_AXIS_PITCH;
 
 	if(!blockMove)
 	{
-		input.dz += forwardmove_android ;
-		input.dx -= sidemove_android;
+		input->joyaxes[JOYAXIS_Forward] += forwardmove_android ;
+		input->joyaxes[JOYAXIS_Side] -= sidemove_android;
 	}
 
 	if(!blockLook)
 	{
 		// Add pitch
-		input.dpitch += -look_pitch_mouse * 35;
+		input->mouseturny += -look_pitch_mouse * 200;
 		look_pitch_mouse = 0;
-		input.dpitch += look_pitch_joy * 1;
+		input->mouseturny += look_pitch_joy * 3;
 
 		// Add yaw
-		input.dyaw += -look_yaw_mouse * 100;
+		input->mouseturnx += -look_yaw_mouse * 600;
 		look_yaw_mouse = 0;
-		input.dyaw += -look_yaw_joy * 1;
+		input->mouseturnx += -look_yaw_joy * 3;
 	}
 
 	if(cmd_to_run)
