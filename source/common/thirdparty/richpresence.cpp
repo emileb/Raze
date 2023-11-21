@@ -86,6 +86,7 @@ static void handleDiscordJoinRequest(const DiscordUser* request)
 
 void I_UpdateDiscordPresence(bool SendPresence, const char* curstatus, const char* appid, const char* steamappid)
 {
+#ifdef USE_DISCORD
 	const char* curappid = DEFAULT_DISCORD_APP_ID;
 
 	if (appid && appid[0] != '\0')
@@ -125,5 +126,6 @@ void I_UpdateDiscordPresence(bool SendPresence, const char* curstatus, const cha
 	{
 		Discord_ClearPresence();
 	}
+#endif
 }
 

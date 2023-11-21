@@ -66,6 +66,12 @@
 #include "st_start.h"
 #include "printf.h"
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#include "LogWritter.h"
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO,"Gzdoom", __VA_ARGS__))
+#endif
+
 
 #ifndef NO_GTK
 bool I_GtkAvailable ();
@@ -131,6 +137,10 @@ void Unix_I_FatalError(const char* errortext)
 		FString title;
 		title << GAMENAME " " << GetVersionString();
 
+#ifdef __ANDROID__
+        LOGI("FATAL ERROR: %s", errortext);
+        LogWritter_Write(errortext);
+#endif
 		if (SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title.GetChars(), errortext, NULL) < 0)
 		{
 			printf("\n%s\n", errortext);
@@ -142,6 +152,11 @@ void Unix_I_FatalError(const char* errortext)
 
 void I_ShowFatalError(const char *message)
 {
+#ifdef __ANDROID__
+        LOGI("ERROR: %s", message);
+        LogWritter_Write(message);
+#endif
+
 #ifdef __APPLE__
 	Mac_I_FatalError(message);
 #elif defined __unix__
@@ -405,6 +420,10 @@ FString I_GetFromClipboard (bool use_primary_selection)
 	}
 	return "";
 }
+
+#ifdef __ANDROID__
+extern "C" char *get_current_dir_name(void);
+#endif
 
 FString I_GetCWD()
 {
