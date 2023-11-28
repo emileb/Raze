@@ -482,21 +482,19 @@ void Mobile_IN_Move(float joyAxes[NUM_JOYAXIS], FVector2 &mouseInput)
 	{
 		joyAxes[JOYAXIS_Side] -= sidemove_android;
 		joyAxes[JOYAXIS_Forward] += forwardmove_android ;
-		//->joyaxes[JOYAXIS_Forward] += forwardmove_android ;
-		//input->joyaxes[JOYAXIS_Side] -= sidemove_android;
 	}
 
 	if(!blockLook)
 	{
 		// Add pitch
-		mouseInput.Y += -look_pitch_mouse * 200;
+		mouseInput.Y += look_pitch_mouse * 3000;
 		look_pitch_mouse = 0;
-		mouseInput.Y += look_pitch_joy * 3;
+		mouseInput.Y += -look_pitch_joy * 200;
 
 		// Add yaw
-		mouseInput.X += -look_yaw_mouse * 600;
+		mouseInput.X += -look_yaw_mouse * 13000;
 		look_yaw_mouse = 0;
-		mouseInput.X += -look_yaw_joy * 3;
+		mouseInput.X += -look_yaw_joy * 100;
 	}
 
 	if(cmd_to_run)
