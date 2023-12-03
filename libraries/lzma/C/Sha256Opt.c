@@ -13,11 +13,11 @@
 
 #ifdef MY_CPU_X86_OR_AMD64
   #if defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1600) // fix that check
-      #define USE_HW_SHA
+      //#define USE_HW_SHA
   #elif defined(Z7_LLVM_CLANG_VERSION)  && (Z7_LLVM_CLANG_VERSION  >= 30800) \
      || defined(Z7_APPLE_CLANG_VERSION) && (Z7_APPLE_CLANG_VERSION >= 50100) \
      || defined(Z7_GCC_VERSION)         && (Z7_GCC_VERSION         >= 40900)
-      #define USE_HW_SHA
+      //#define USE_HW_SHA
       #if !defined(_INTEL_COMPILER)
       // icc defines __GNUC__, but icc doesn't support __attribute__(__target__)
       #if !defined(__SHA__) || !defined(__SSSE3__)
@@ -31,7 +31,7 @@
       #define USE_VER_MIN 1900
     #endif
     #if (_MSC_VER >= USE_VER_MIN)
-      #define USE_HW_SHA
+     // #define USE_HW_SHA
     #endif
   #endif
 // #endif // MY_CPU_X86_OR_AMD64
@@ -206,15 +206,15 @@ void Z7_FASTCALL Sha256_UpdateBlocks_HW(UInt32 state[8], const Byte *data, size_
 
   #if defined(__clang__)
     #if (__clang_major__ >= 8) // fix that check
-      #define USE_HW_SHA
+     // #define USE_HW_SHA
     #endif
   #elif defined(__GNUC__)
     #if (__GNUC__ >= 6) // fix that check
-      #define USE_HW_SHA
+    //  #define USE_HW_SHA
     #endif
   #elif defined(_MSC_VER)
     #if _MSC_VER >= 1910
-      #define USE_HW_SHA
+      //#define USE_HW_SHA
     #endif
   #endif
 
