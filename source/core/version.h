@@ -41,6 +41,7 @@ const char *GetVersionString();
 
 /** Lots of different version numbers **/
 
+
 #define VERSIONSTR "1.11.0"
 
 // The version as seen in the Windows resource
