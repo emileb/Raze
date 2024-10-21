@@ -218,8 +218,11 @@ void D_AddDirectory(std::vector<std::string>& wadfiles, const char* dir, const c
 // or nullptr if it could not be found.
 //
 //==========================================================================
-
 static FString BFSwad; // outside the function to evade C++'s insane rules for constructing static variables inside functions.
+
+#ifdef __MOBILE__
+extern "C" const char *resFilePath_c;
+#endif
 
 const char* BaseFileSearch(const char* file, const char* ext, bool lookfirstinprogdir, FConfigFile* config)
 {
@@ -266,6 +269,15 @@ const char* BaseFileSearch(const char* file, const char* ext, bool lookfirstinpr
 		}
 	}
 
+#ifdef __MOBILE__
+	char wad[128];
+	mysnprintf(wad, countof(wad), "%s/%s", resFilePath_c, file);
+	if (DirEntryExists(wad))
+	{
+        BFSwad = wad;
+		return BFSwad.GetChars();
+	}
+#endif
 	// Retry, this time with a default extension
 	if (ext != nullptr)
 	{

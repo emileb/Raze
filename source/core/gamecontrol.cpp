@@ -660,7 +660,9 @@ int GameMain()
 		gi = nullptr;
 	}
 	DeleteStartupScreen();
+#ifndef __ANDROID__
 	CloseWidgetResources();
+#endif
 	PClass::StaticShutdown();
 	C_UninitCVars();
 	if (Args) delete Args;
@@ -1023,8 +1025,9 @@ int RunGame()
 		I_FatalError("Cannot find " ENGINERES_FILE);
 	}
 	LoadHexFont(wad);	// load hex font early so we have it during startup.
+#ifndef __ANDROID__
 	InitWidgetResources(wad);
-
+#endif
 	// load strings for picker window.
 	FileSys::FileSystem lang_fs;
 	std::vector<std::string> base_fn = { wad };

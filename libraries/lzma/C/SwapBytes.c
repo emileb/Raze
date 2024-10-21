@@ -752,7 +752,7 @@ void z7_SwapBytesPrepare(void)
 #ifndef FORCE_SWAP_MODE
   unsigned mode = 0; // k_SwapBytes_Mode_BASE;
 
-#ifdef MY_CPU_ARM_OR_ARM64
+#if 1
   {
     if (CPU_IsSupported_NEON())
     {
