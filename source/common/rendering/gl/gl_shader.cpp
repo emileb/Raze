@@ -67,6 +67,9 @@ static std::map<FString, std::unique_ptr<ProgramBinary>> ShaderCache; // Not a T
 
 bool IsShaderCacheActive()
 {
+#ifdef __MOBILE__
+	return true;
+#endif
 	static bool active = true;
 	static bool firstcall = true;
 
@@ -219,6 +222,7 @@ bool FShader::Load(const char * name, const char * vert_prog_lump, const char * 
 		// these settings are actually pointless but there seem to be some old ATI drivers that fail to compile the shader without setting the precision here.
 		precision highp int;
 		precision highp float;
+		precision highp sampler2DArray;
 
 		// This must match the HWViewpointUniforms struct
 		layout(std140) uniform ViewpointUBO {
@@ -389,11 +393,14 @@ bool FShader::Load(const char * name, const char * vert_prog_lump, const char * 
 	assert(screen->mLights != NULL);
 	assert(screen->mBones != NULL);
 
-
+#ifdef __MOBILE__
+	vp_comb << "#version 310 es\n";
+#else
 	if ((gl.flags & RFL_SHADER_STORAGE_BUFFER) && screen->allowSSBO())
 		vp_comb << "#version 430 core\n#define SUPPORTS_SHADOWMAPS\n";
 	else 
 		vp_comb << "#version 330 core\n";
+#endif
 
 	bool lightbuffertype = screen->mLights->GetBufferType();
 	if (!lightbuffertype)
@@ -632,6 +639,7 @@ bool FShader::Load(const char * name, const char * vert_prog_lump, const char * 
 	{
 		char stringbuf[20];
 		mysnprintf(stringbuf, 20, "texture%d", i);
+
 		tempindex = glGetUniformLocation(hShader, stringbuf);
 		if (tempindex != -1) glUniform1i(tempindex, i - 1);
 	}
@@ -641,6 +649,7 @@ bool FShader::Load(const char * name, const char * vert_prog_lump, const char * 
 
 	int lightmapindex = glGetUniformLocation(hShader, "LightMap");
 	if (lightmapindex != -1) glUniform1i(lightmapindex, 17);
+
 
 	glUseProgram(0);
 	return linked;

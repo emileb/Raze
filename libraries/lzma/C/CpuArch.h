@@ -50,7 +50,7 @@ MY_CPU_64BIT means that processor can work with 64-bit registers.
   || defined(__AARCH64EL__) \
   || defined(__AARCH64EB__) \
   || defined(__aarch64__)
-  #define MY_CPU_ARM64
+  //#define MY_CPU_ARM64
   #ifdef __ILP32__
     #define MY_CPU_NAME "arm64-32"
     #define MY_CPU_SIZEOF_POINTER 4

@@ -317,6 +317,9 @@ void GameInput::processInputBits()
 		inputBuffer.actions |= SB_QUICK_KICK;
 }
 
+#ifdef __ANDROID__
+void Mobile_IN_Move(float joyAxes[NUM_JOYAXIS], FVector2 &mouseInput);
+#endif
 
 //---------------------------------------------------------------------------
 //
@@ -336,6 +339,11 @@ void GameInput::getInput(InputPacket* packet)
 	}
 
 	I_GetAxes(joyAxes);
+
+#ifdef __ANDROID__
+	Mobile_IN_Move(joyAxes, mouseInput);
+#endif
+
 	processInputBits();
 	if (!paused) gi->doPlayerMovement();
 	mouseInput.Zero();
