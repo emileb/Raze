@@ -144,7 +144,9 @@ void G_BuildTiccmd(ticcmd_t* cmd)
 		savegamefile = "";
 	}
 	cmd->ucmd = {};
+
 	gameInput.getInput(&cmd->ucmd);
+
 	cmd->consistency = consistency[myconnectindex][(maketic / ticdup) % BACKUPTICS];
 }
 

@@ -528,7 +528,7 @@ static int getlabeloffset(LABELS* pLabel, const char* psz)
 
 void ConCompiler::getlabel(void)
 {
-	int i;
+	size_t i;
 
 	skipcomments();
 

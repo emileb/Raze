@@ -98,3 +98,4 @@ enum GameFunction_t
 };
 
 void SetupGameButtons();
+

@@ -43,6 +43,7 @@ const char *GetVersionString();
 
 #define VERSIONSTR "1.10.2"
 
+
 // The version as seen in the Windows resource
 #define RC_FILEVERSION 1,10,2,0
 #define RC_PRODUCTVERSION 1,10,2,0
@@ -56,13 +57,18 @@ const char *GetVersionString();
 #define ENG_MINOR 10
 #define ENG_REVISION 2
 
+
 // More stuff that needs to be different for derivatives.
 #define GAMENAME "Raze"
 #define WGAMENAME L"Raze"
 #define GAMENAMELOWERCASE "raze"
 #define FORUM_URL "http://forum.zdoom.org/"
 #define BUGS_FORUM_URL	"http://forum.zdoom.org/viewforum.php?f=340"
+#ifdef __ANDROID__
+#define ENGINERES_FILE "raze_dev.pk3"
+#else
 #define ENGINERES_FILE GAMENAMELOWERCASE ".pk3"
+#endif
 
 #define SAVESIG_DN3D GAMENAME ".Duke"
 #define SAVESIG_BLD GAMENAME ".Blood"
