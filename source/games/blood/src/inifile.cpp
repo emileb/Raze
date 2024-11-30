@@ -230,6 +230,6 @@ IniFile::~IniFile(void)
     {
         auto node = curNode;
         curNode = curNode->next;
-        free(node);
+        M_Free(node);
     }
 }
