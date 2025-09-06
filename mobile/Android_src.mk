@@ -91,7 +91,7 @@ LOCAL_C_INCLUDES := \
  $(TOP_DIR)/AudioLibs_OpenTouch/openal/include/AL \
  $(TOP_DIR)/Clibs_OpenTouch/jpeg8d \
  $(TOP_DIR)/Clibs_OpenTouch \
- $(TOP_DIR)/Clibs_OpenTouch\raze \
+ $(TOP_DIR)/Clibs_OpenTouch/raze \
  $(TOP_DIR)/MobileTouchControls  \
  $(TOP_DIR)/ZMusic/include  \
  $(GZDOOM_TOP_PATH)/mobile/src/extrafiles  \
