@@ -435,6 +435,17 @@ touchscreemode_t PortableGetScreenMode()
 		return TS_BLANK;
 }
 
+EXTERN_CVAR(Bool, cl_run);
+
+bool PortableSetAlwaysRun(bool run)
+{
+    if(run)
+        PortableCommand("cl_autorun 1");
+    else
+        PortableCommand("cl_autorun  0");
+
+    return false;
+}
 
 int PortableShowKeyboard(void)
 {
@@ -458,7 +469,6 @@ void PortableAutomapControl(float zoom, float x, float y)
 	am_zoom += zoom * 5;
 	am_pan_x += x * 400;
 	am_pan_y += y * 400;
-	//LOGI("am_pan_x = %f",am_pan_x);
 }
 
 
@@ -466,10 +476,6 @@ void Mobile_AM_controls(double *zoom, double *pan_x, double *pan_y)
 {
 
 }
-
-//extern void G_AddViewAngle (int yaw);
-//extern void G_AddViewPitch (int look);
-//void AddCommandString (char *cmd, int keynum=0);
 
 extern "C" int blockGamepad(void);
 
