@@ -752,7 +752,9 @@ void z7_SwapBytesPrepare(void)
 #ifndef FORCE_SWAP_MODE
   unsigned mode = 0; // k_SwapBytes_Mode_BASE;
 
-#if 1
+#if defined(__ANDROID__)
+  // CPU feature checks are stubbed out on Android (MY_CPU_ARM64 is disabled), so keep the base mode
+#elif defined(MY_CPU_ARM_OR_ARM64)
   {
     if (CPU_IsSupported_NEON())
     {
