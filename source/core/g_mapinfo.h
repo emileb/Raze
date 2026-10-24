@@ -128,7 +128,7 @@ struct FMapInfoParser
 #define GCC_YSEG
 #else
 #define MSVC_YSEG
-#define GCC_YSEG __attribute__((section(SECTION_YREG))) __attribute__((used))
+#define GCC_YSEG __attribute__((section(SECTION_YREG))) __attribute__((used)) AUTOSEG_RETAIN
 #endif 
 
 #define DEFINE_MAP_OPTION(name, old) \
