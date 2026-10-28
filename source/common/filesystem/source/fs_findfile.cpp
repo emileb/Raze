@@ -36,6 +36,9 @@
 #include <string.h>
 #include <vector>
 #include <sys/stat.h>
+#ifdef __ANDROID__
+#include <strings.h>
+#endif
 
 #ifndef _WIN32
 
@@ -368,6 +371,11 @@ static bool DoScanDirectory(FileList& list, const char* dirpath, const char* mat
 				// Do not record . and .. directories.
 				continue;
 			}
+#ifdef __ANDROID__
+			// The launcher loads the selected mods and addons itself, so don't list and mount all of them
+			if (!nosubdir && relpath[0] == 0 && (!strcasecmp(fn, "mods") || !strcasecmp(fn, "addons")))
+				continue;
+#endif
 		}
 
 		fl.FileName = fn;
