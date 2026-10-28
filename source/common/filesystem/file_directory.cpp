@@ -148,6 +148,11 @@ int FDirectory::AddDirectory(const char *dirpath)
 					// Do not record . and .. directories.
 					continue;
 				}
+#ifdef __ANDROID__
+				// The launcher loads the selected mods and addons itself, so don't list and mount all of them
+				if (!strcmp(dirpath, FileName.GetChars()) && (!stricmp(fi, "mods") || !stricmp(fi, "addons")))
+					continue;
+#endif
 				FString newdir = dirpath;
 				newdir << fi << '/';
 				count += AddDirectory(newdir);
